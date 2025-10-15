@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-2">
+  <h2>{{ event.title }}</h2>
+  <div>
+    <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('edit_event', event_id=event.id) }}">Edit</a>
+    <a class="btn btn-sm btn-outline-primary" href="{{ url_for('manage_attendees', event_id=event.id) }}">Attendees</a>
+  </div>
+</div>
+
+<ul class="list-group mb-3">
+  <li class="list-group-item"><strong>Date:</strong> {{ event.date.strftime('%Y-%m-%d') }}</li>
+  <li class="list-group-item"><strong>Location:</strong> {{ event.location }}</li>
+  <li class="list-group-item"><strong>Capacity:</strong> {{ event.capacity }}</li>
+  <li class="list-group-item"><strong>Tickets sold:</strong> {{ event.tickets_sold or 0 }}</li>
+  <li class="list-group-item"><strong>Tickets left:</strong> {{ event.tickets_left() }}</li>
+</ul>
+
+<div>
+  <h5>Description</h5>
+  <p>{{ event.description or '-' }}</p>
+</div>
+
+{% endblock %}

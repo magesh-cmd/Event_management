@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="event">
+<div class="d-flex justify-content-between align-items-center mb-3" >
+  <h2>Events</h2>
+  <a class="btn btn-success" href="{{ url_for('create_event') }}">+ New Event</a>
+</div>
+
+<form class="row g-2 mb-3" method="get" action="{{ url_for('list_events') }}">
+  <div class="col-md-5">
+    <input class="form-control" name="q" placeholder="Search title..." value="{{ q }}">
+  </div>
+  <div class="col-md-4">
+    <input class="form-control" name="date" placeholder="Search date (YYYY-MM-DD)" value="{{ date_filter }}">
+  </div>
+  <div class="col-md-3">
+    <button class="btn btn-outline-primary">Search</button>
+    <a class="btn btn-outline-secondary" href="{{ url_for('list_events') }}">Reset</a>
+  </div>
+</form>
+
+{% if events %}
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+      <th>Location</th>
+      <th>Capacity</th>
+      <th>Sold</th>
+      <th>Left</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in events %}
+    <tr>
+      <td style="padding: 20px"><a href="{{ url_for('view_event', event_id=e.id) }}" style="text-decoration: none; color: black;">{{ e.title }}</a></td>
+      <td style="padding: 20px">{{ e.date.strftime('%Y-%m-%d') }}</td>
+      <td style="padding: 20px">{{ e.location }}</td>
+      <td style="padding: 20px">{{ e.capacity }}</td>
+      <td style="padding: 20px">{{ e.tickets_sold or 0 }}</td>
+      <td style="padding: 20px">{{ e.tickets_left() }}</td>
+      <td style="padding: 20px">
+        <a class="btn btn-sm btn-primary" href="{{ url_for('edit_event', event_id=e.id) }}">Edit</a>
+        <form method="post" action="{{ url_for('delete_event', event_id=e.id) }}" style="display:inline-block" onsubmit="return confirm('Delete event?');">
+          <button class="btn btn-sm btn-danger">Delete</button>
+        </form>
+        <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('manage_attendees', event_id=e.id) }}">Attendees</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+  <div class="text-muted">No events found. Create one to get started.</div>
+{% endif %}
+{% endblock %}

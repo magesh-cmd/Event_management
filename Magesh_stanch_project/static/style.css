@@ -1,0 +1,20 @@
+body { background: #f7f9fc; }
+.modern-table tbody tr { background: #ffffff; border-radius: 8px; }
+.container { 
+    max-width: 1200px; 
+}
+.container1 { 
+    max-width: 1200px; 
+    padding-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* subtle card look */
+.card { border: none; box-shadow: 0 6px 18px rgba(31,45,61,0.06); border-radius: 12px; }
+.navbar-brand { font-weight: 700; letter-spacing: 0.3px; }
+h2 { font-weight: 600; }
+
+/* small responsive tweaks */
+@media (max-width: 575px) {
+  .display-6 { font-size: 1.6rem; }
+}

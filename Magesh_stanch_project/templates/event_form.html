@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ action }} Event</h2>
+
+<form method="post">
+  <div class="mb-3">
+    <label class="form-label">Title</label>
+    <input name="title" class="form-control" required value="{{ event.title if event else '' }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea name="description" class="form-control">{{ event.description if event else '' }}</textarea>
+  </div>
+  <div class="row">
+    <div class="mb-3 col-md-4">
+      <label class="form-label">Date</label>
+      <input name="date" class="form-control" type="date" required value="{{ event.date.strftime('%Y-%m-%d') if event else '' }}">
+    </div>
+    <div class="mb-3 col-md-4">
+      <label class="form-label">Location</label>
+      <input name="location" class="form-control" value="{{ event.location if event else '' }}">
+    </div>
+    <div class="mb-3 col-md-4">
+      <label class="form-label">Capacity</label>
+      <input name="capacity" class="form-control" type="number" min="0" required value="{{ event.capacity if event else 0 }}">
+    </div>
+  </div>
+
+  <button class="btn btn-primary">{{ action }}</button>
+  <a class="btn btn-secondary" href="{{ url_for('list_events') }}">Cancel</a>
+</form>
+{% endblock %}

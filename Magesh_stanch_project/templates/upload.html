@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>CSV Import</h2>
+<p class="text-muted">Upload a CSV with headers: <strong>Event Title, Description, Date, Location, Capacity</strong></p>
+
+<form method="post" enctype="multipart/form-data">
+  <div class="mb-3">
+    <input class="form-control" type="file" name="file" accept=".csv" required>
+  </div>
+  <button class="btn btn-primary">Upload</button>
+  <a class="btn btn-secondary" href="{{ url_for('list_events') }}">Cancel</a>
+</form>
+
+<hr>
+<h6>Example CSV</h6>
+<pre>Event Title,Description,Date,Location,Capacity
+Conference 2025,Annual conference,2025-11-10,Bangalore,200
+Workshop: Flask,Intro to Flask,2025-07-05,Chennai,50
+</pre>
+{% endblock %}

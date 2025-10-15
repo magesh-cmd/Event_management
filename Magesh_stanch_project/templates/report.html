@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Report</h2>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card p-3 mb-3">
+      <h5>Total events</h5>
+      <div class="display-6">{{ total_events }}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3 mb-3">
+      <h5>Total attendees</h5>
+      <div class="display-6">{{ total_attendees }}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3 mb-3">
+      <h5>Tickets sold</h5>
+      <div class="display-6">{{ total_tickets_sold }}</div>
+    </div>
+  </div>
+</div>
+
+<p class="text-muted">Note: You can extend this page to include revenue charts by adding a ticket price field per event or per ticket.</p>
+{% endblock %}

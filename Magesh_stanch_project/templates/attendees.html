@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Attendees — {{ event.title }}</h2>
+  <a class="btn btn-outline-secondary" href="{{ url_for('list_events') }}">Back to Events</a>
+</div>
+
+<div class="card mb-3 p-3">
+  <form method="post" class="row g-2 align-items-end">
+    <div class="col-md-4">
+      <label class="form-label">Name</label>
+      <input name="name" class="form-control" required>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Email</label>
+      <input name="email" type="email" class="form-control">
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-success">Register</button>
+      <span class="ms-3 text-muted">Left: {{ event.tickets_left() }}</span>
+    </div>
+  </form>
+</div>
+
+{% if attendees %}
+<table class="table modern-table">
+  <thead>
+    <tr><th>Name</th><th>Email</th><th>Registered</th><th>Action</th></tr>
+  </thead>
+  <tbody>
+    {% for a in attendees %}
+    <tr>
+      <td>{{ a.name }}</td>
+      <td>{{ a.email }}</td>
+      <td>{{ a.registered_at.strftime('%Y-%m-%d %H:%M') }}</td>
+      <td>
+        <form method="post" action="{{ url_for('delete_attendee', att_id=a.id) }}" onsubmit="return confirm('Remove attendee?');">
+          <button class="btn btn-sm btn-danger">Remove</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <div class="text-muted">No attendees yet.</div>
+{% endif %}
+{% endblock %}
